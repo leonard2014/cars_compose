@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Cars</string>
+    <string name="empty_message">No cars found.</string>
+    <string name="error_message">Sorry, something wrong, please try later.</string>
+</resources>
