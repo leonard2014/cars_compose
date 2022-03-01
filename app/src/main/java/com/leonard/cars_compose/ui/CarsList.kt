@@ -14,14 +14,14 @@ import com.leonard.cars_compose.ui.model.CarsUIItem
 import com.leonard.cars_compose.ui.model.CarsUIList
 
 @Composable
-internal fun CarsList(list: CarsUIList) {
+internal fun CarsList(list: CarsUIList, onItemClick: (car: CarsUIItem) -> Unit) {
     LazyColumn(
         contentPadding = PaddingValues(16.dp),
         modifier = Modifier.fillMaxSize(),
         verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
         items(items = list) { car ->
-            ListRow(car)
+            ListRow(car, onItemClick)
             Divider()
         }
     }
@@ -39,5 +39,5 @@ private fun PreviewCarsList() {
                 image = null
             )
         )
-    )
+    ){}
 }

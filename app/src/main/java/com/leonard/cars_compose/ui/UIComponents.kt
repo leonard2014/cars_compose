@@ -2,9 +2,9 @@ package com.leonard.cars_compose.ui
 
 import android.R
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Card
 import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
@@ -32,13 +32,15 @@ fun ProgressBar() {
 }
 
 @Composable
-fun ListRow(car: CarsUIItem) {
+fun ListRow(car: CarsUIItem, onItemClick: (car: CarsUIItem) -> Unit) {
     Row(
         modifier = Modifier
             .fillMaxSize()
-            .padding(top = 8.dp, bottom = 8.dp, end = 8.dp),
-        verticalAlignment = Alignment.Top
-    ) {
+            .padding(top = 8.dp, bottom = 8.dp, end = 8.dp)
+            .clickable { onItemClick(car) },
+        verticalAlignment = Alignment.Top,
+
+        ) {
         car.image?.let {
             CarImage(
                 painter = rememberImagePainter(
@@ -92,5 +94,5 @@ private fun CarImage(painter: Painter) {
 private fun PreviewListRow() {
     ListRow(
         CarsUIItem(title = "2021 Toyota Corolla", price = "$30,000", image = null)
-    )
+    ) {}
 }

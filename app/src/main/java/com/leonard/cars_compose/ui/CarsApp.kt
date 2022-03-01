@@ -24,15 +24,17 @@ fun CarsApp(mainViewModel: MainViewModel) {
             val navController = rememberNavController()
             NavHost(navController, startDestination = NavRoute.CarsList.name) {
                 composable(route = NavRoute.CarsList.name) {
-                    CarsListScreen(mainViewModel = mainViewModel)
+                    CarsListScreen(mainViewModel = mainViewModel, navController = navController)
+                }
+
+                composable(route = NavRoute.CarDetails.name) {
+                    CarDetails()
                 }
             }
-
-            CarsListScreen(mainViewModel)
         }
     }
 }
 
-private enum class NavRoute {
+enum class NavRoute {
     CarsList, CarDetails
 }

@@ -10,16 +10,19 @@ import androidx.compose.ui.res.stringResource
 import com.leonard.cars_compose.R
 import com.leonard.cars_compose.ui.model.UIState
 import androidx.compose.runtime.getValue
+import androidx.navigation.NavController
 
 @Composable
-internal fun CarsListScreen(mainViewModel: MainViewModel) {
+internal fun CarsListScreen(navController: NavController, mainViewModel: MainViewModel) {
     val uiState: UIState by mainViewModel.carsList
     when (uiState) {
         is UIState.Loading -> {
             ProgressBar()
         }
         is UIState.Content -> {
-            CarsList((uiState as UIState.Content).list)
+            CarsList((uiState as UIState.Content).list) {
+                navController.navigate(NavRoute.CarDetails.name)
+            }
         }
         is UIState.Empty -> {
             EmptyState()

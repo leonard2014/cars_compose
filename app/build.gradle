@@ -61,6 +61,7 @@ dependencies {
     // retrofit
     implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
     implementation "com.squareup.retrofit2:converter-gson:$retrofit_version"
+    implementation "com.squareup.okhttp3:logging-interceptor:4.9.3"
 
     //koin
     implementation "io.insert-koin:koin-core:$koin_version"
