@@ -1,17 +1,14 @@
 package com.leonard.cars_compose.ui
 
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.material.TopAppBar
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
 import com.leonard.cars_compose.R
-import com.leonard.cars_compose.ui.model.UIState
 import com.leonard.cars_compose.ui.theme.Cars_Theme
 
 @Composable
@@ -24,45 +21,18 @@ fun CarsApp(mainViewModel: MainViewModel) {
                 }
             )
         }) {
-            val uiState: UIState by mainViewModel.carsList
-            when (uiState) {
-                is UIState.Loading -> {
-                    ProgressBar()
-                }
-                is UIState.Content -> {
-                    CarsList((uiState as UIState.Content).list)
-                }
-                is UIState.Empty -> {
-                    EmptyState()
-                }
-                else -> {
-                    ErrorState()
+            val navController = rememberNavController()
+            NavHost(navController, startDestination = NavRoute.CarsList.name) {
+                composable(route = NavRoute.CarsList.name) {
+                    CarsListScreen(mainViewModel = mainViewModel)
                 }
             }
+
+            CarsListScreen(mainViewModel)
         }
     }
 }
 
-@Composable
-private fun EmptyState() {
-    Box(
-        contentAlignment = Alignment.Center,
-        modifier = Modifier.fillMaxSize()
-    ) {
-        Text(
-            text = stringResource(R.string.empty_message)
-        )
-    }
-}
-
-@Composable
-private fun ErrorState() {
-    Box(
-        contentAlignment = Alignment.Center,
-        modifier = Modifier.fillMaxSize()
-    ) {
-        Text(
-            text = stringResource(R.string.error_message)
-        )
-    }
+private enum class NavRoute {
+    CarsList, CarDetails
 }
